@@ -15,13 +15,16 @@ const registerValidation = data => {
 			   .email(),
 
 		phone: Joi.string()
-			   .min(11)
-			   .max(11)
+			   .min(10)
+			   .max(10)
 			   .required(),
 
 		password: Joi.string()
 				  .min(6)
-				  .required()
+				  .required(),
+				  
+		bmdc: Joi.string()
+			  .required()
 	};
 
 	return Joi.validate(data, schema);
@@ -41,10 +44,14 @@ const updateValidation = data => {
 			   .required()
 			   .email(),
 
-		phone: Joi.string()
-			   .min(11)
-			   .max(11)
-			   .required()
+		phone: Joi.number()
+			   .integer()
+			   .min(1000000000)
+			   .max(9999999999)
+			   .required(),
+
+		bmdc: Joi.string()
+			  .required()
 	};
 
 	return Joi.validate(data, schema);

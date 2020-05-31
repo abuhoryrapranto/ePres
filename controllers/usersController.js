@@ -22,6 +22,7 @@ const saveUser = async (req,res) => {
 		last_name: req.body.last_name,
 		email: req.body.email,
 		phone: req.body.phone,
+		bmdc: req.body.bmdc,
 		password: hashPassword
 	});
 
@@ -77,7 +78,8 @@ const updateUser = async (req, res) => {
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
 		email: req.body.email,
-		phone: req.body.phone
+		phone: req.body.phone,
+		bmdc: req.body.bmdc
 	}
 
 	try {
@@ -101,7 +103,8 @@ const userLogin = async (req, res) => {
 	if(!password) return res.status(400).json({message: "Password is Not valid"});
 
 	const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-	res.header('auth-token', token).send(token);
+	res.header('auth_token', token).send(token);
+	//return res.status(200);
 
 }
 

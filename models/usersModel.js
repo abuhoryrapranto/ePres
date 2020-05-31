@@ -17,9 +17,13 @@ const saveUser  = mongoose.Schema({
 		unique:true
 	},
 	phone: {
-		type: String,
+		type: Number,
 		required: true,
-		unique: true
+		unique: true,
+		validate: {
+       validator: function(v) {
+         return /^([0-9]{10}$)/.test(v);
+       }}
 	},
 	password: {
 		type: String,
@@ -27,10 +31,15 @@ const saveUser  = mongoose.Schema({
 		min: 6,
 		max: 1024
 	},
+	bmdc: {
+		type: String,
+		required: true
+	},
 	craeted_at: {
 		type: Date,
 		default: Date.now
 	}
+	
 });
 
 module.exports = mongoose.model('members', saveUser)
