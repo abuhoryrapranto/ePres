@@ -13,6 +13,9 @@ const saveUser = async (req,res) => {
 
 	const phoneExist = await User.findOne({phone: req.body.phone});
 	if(phoneExist) return res.status(400).json({message: "Phone is already exist"});
+
+	const bmdcExist = await User.findOne({bmdc: req.body.bmdc});
+	if(bmdcExist) return res.status(400).json({message: "BMDC code is already exist"});
 	
 	const salt = await bcrypt.genSalt(10);
 	const hashPassword = await bcrypt.hash(req.body.password, salt);
