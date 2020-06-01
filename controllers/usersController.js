@@ -96,7 +96,12 @@ const userLogin = async (req, res) => {
 	const { error } = validation.loginValidation(req.body);
 	if(error) return res.status(400).json({message: error.details[0].message});
 
-	const user = await User.findOne({email: req.body.email});
+	const user = await User.findOne({
+		"$and": [{
+		"email" :  req.body.email
+	},{	"is_active" : 1
+	}]
+	});
 	if(!user) return res.status(400).json({message: "Email Not found"});
 
 	const password = await bcrypt.compare(req.body.password, user.password);
