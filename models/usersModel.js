@@ -35,11 +35,15 @@ const saveUser  = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	is_active: {
+		type: Number,
+		default: 0
+	},
 	craeted_at: {
 		type: Date,
 		default: Date.now
 	}
 	
-});
+}, { strict: false });
 
 module.exports = mongoose.model('members', saveUser)
