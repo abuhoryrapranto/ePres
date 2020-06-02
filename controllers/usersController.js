@@ -64,7 +64,7 @@ const updateUser = async (req, res) => {
 	const { error } = validation.updateValidation(req.body);
 	if(error) return res.status(400).json({message: error.details[0].message});
 
-	const data = await User.findOne({"_id": req.params.id}, {email: 1, phone:1});
+	const data = await User.findOne({"_id": req.params.id}, {email: 1, phone:1, bmdc:1});
 
 	if(data.email !== req.body.email) {
 		const emailExist = await User.findOne({email: req.body.email});
@@ -74,6 +74,11 @@ const updateUser = async (req, res) => {
 	if(data.phone !== req.body.phone) {
 		const phoneExist = await User.findOne({phone: req.body.phone});
 			if(phoneExist) return res.status(400).json({message: "Phone is already exist"});
+	}
+
+	if(data.bmdc !== req.body.bmdc) {
+		const bmdcExist = await User.findOne({bmdc: req.body.bmdc});
+			if(bmdcExist) return res.status(400).json({message: "BMDC code is already exist"});
 	}
 
 	let id = req.params.id;
